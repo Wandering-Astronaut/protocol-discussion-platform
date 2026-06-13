@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+
+  # ── Laravel API ─────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: jh_backend
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+   
+    environment:
+      APP_NAME: JustHolistics
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /var/www/html/database/database.sqlite
+      TYPESENSE_HOST: x32yfd6mhrs4nvb5p-1.a1.typesense.net
+      TYPESENSE_PORT: 443
+      TYPESENSE_PROTOCOL: https
+      TYPESENSE_API_KEY: XE7Wrc3WU8JNehnUH3QpcEqpG4xp6wvg
+      TYPESENSE_SEARCH_ONLY_KEY: I2KxztOF7xCHq9IuhvEwEurIhwqH0Yco
+      FRONTEND_URL: http://localhost:3000
+    depends_on:
+      - frontend
+    networks:
+      - jh_network
+
+  # ── Next.js Frontend ────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: jh_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api
+      NEXT_PUBLIC_TYPESENSE_HOST: x32yfd6mhrs4nvb5p-1.a1.typesense.net
+      NEXT_PUBLIC_TYPESENSE_PORT: "443"
+      NEXT_PUBLIC_TYPESENSE_PROTOCOL: https
+      NEXT_PUBLIC_TYPESENSE_SEARCH_KEY: I2KxztOF7xCHq9IuhvEwEurIhwqH0Yco
+    networks:
+      - jh_network
+
+
+
+networks:
+  jh_network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "true"

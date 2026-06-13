@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: justholistics-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_NAME
+        value: JustHolistics
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /var/www/html/database/database.sqlite
+      - key: TYPESENSE_HOST
+        value: f8g1svtrc4xbjdnwp-1.a1.typesense.net
+      - key: TYPESENSE_PORT
+        value: 443
+      - key: TYPESENSE_PROTOCOL
+        value: https
+      - key: TYPESENSE_API_KEY
+        value: eTB9DVaaV1Jl2PEabsSAz7Ma18Ch1BXZ
+      - key: TYPESENSE_SEARCH_ONLY_KEY
+        value: Xg7wAqjDID1kNSMTKflrnm6JFm070Evb
+      - key: FRONTEND_URL
+        value: https://justholistics.vercel.app
