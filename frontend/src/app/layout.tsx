@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <footer className="border-t border-sage-muted mt-16 py-8 text-center text-sm text-slate-light bg-cream-warm">
-          <p>© 2024 JustHolistics · Built with care for community wellness</p>
+          <p>© 2026 JustHolistics · Built with care for community wellness</p>
         </footer>
       </body>
     </html>
