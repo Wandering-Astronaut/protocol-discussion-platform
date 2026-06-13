@@ -43,4 +43,5 @@ CMD sh -c "\
     php artisan config:clear && \
     php artisan migrate:fresh --force && \
     php artisan db:seed --force && \
+    php artisan typesense:reindex --fresh && \
     php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"
