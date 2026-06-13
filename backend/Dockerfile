@@ -34,6 +34,7 @@ RUN mkdir -p database \
                 bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache database
 
+RUN touch .env
 
 EXPOSE 8000
 
