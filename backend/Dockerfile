@@ -39,7 +39,21 @@ RUN touch .env
 EXPOSE 8000
 
 CMD sh -c "\
-    php artisan key:generate --force && \
+    echo 'APP_KEY='$APP_KEY > .env && \
+    echo 'APP_ENV='$APP_ENV >> .env && \
+    echo 'APP_DEBUG='$APP_DEBUG >> .env && \
+    echo 'DB_CONNECTION='$DB_CONNECTION >> .env && \
+    echo 'DB_HOST='$DB_HOST >> .env && \
+    echo 'DB_PORT='$DB_PORT >> .env && \
+    echo 'DB_DATABASE='$DB_DATABASE >> .env && \
+    echo 'DB_USERNAME='$DB_USERNAME >> .env && \
+    echo 'DB_PASSWORD='$DB_PASSWORD >> .env && \
+    echo 'TYPESENSE_HOST='$TYPESENSE_HOST >> .env && \
+    echo 'TYPESENSE_PORT='$TYPESENSE_PORT >> .env && \
+    echo 'TYPESENSE_PROTOCOL='$TYPESENSE_PROTOCOL >> .env && \
+    echo 'TYPESENSE_API_KEY='$TYPESENSE_API_KEY >> .env && \
+    echo 'TYPESENSE_SEARCH_ONLY_KEY='$TYPESENSE_SEARCH_ONLY_KEY >> .env && \
+    echo 'FRONTEND_URL='$FRONTEND_URL >> .env && \
     php artisan config:clear && \
     php artisan migrate:fresh --force && \
     php artisan db:seed --force && \
