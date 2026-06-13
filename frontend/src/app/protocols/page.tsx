@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 import { useEffect, useState, useCallback } from 'react';
 import { protocolsApi, Protocol } from '@/lib/api';
 import ProtocolCard from '@/components/protocols/ProtocolCard';
