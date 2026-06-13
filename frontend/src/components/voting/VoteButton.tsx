@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 import { votesApi } from '@/lib/api';
 import { DEMO_USER_ID, cn } from '@/lib/utils';
@@ -16,16 +16,21 @@ export default function VoteButton({ voteableType, voteableId, initialScore, ini
   const [score, setScore] = useState(initialScore);
   const [userVote, setUserVote] = useState<number | null>(initialVote);
   const [loading, setLoading] = useState(false);
+  const isCalling = useRef(false);
 
   async function handleVote(value: 1 | -1) {
-    if (loading) return;
+    if (loading || isCalling.current) return;
+    isCalling.current = true;
     setLoading(true);
     try {
       const res = await votesApi.vote({ user_id: DEMO_USER_ID, voteable_type: voteableType, voteable_id: voteableId, value });
       setScore(res.data.vote_score);
       setUserVote(res.data.user_vote);
     } catch (e) { console.error(e); }
-    finally { setLoading(false); }
+    finally { 
+      setLoading(false);
+      isCalling.current = false;
+    }
   }
 
   const iconSize = size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4';
