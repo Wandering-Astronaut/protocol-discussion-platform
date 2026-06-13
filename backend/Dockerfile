@@ -34,7 +34,6 @@ RUN mkdir -p database \
                 bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache database
 
-RUN cp .env.example .env 2>/dev/null || true
 
 EXPOSE 8000
 
